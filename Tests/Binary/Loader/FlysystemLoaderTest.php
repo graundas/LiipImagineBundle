@@ -14,19 +14,19 @@ class FlysystemLoaderTest extends AbstractTest
 {
     private $container;
     private $sFlysystemFileSystem = 'someLocalFileSystem';
-    
+
     public function setUp()
     {
         parent::setUp();
-        
+
         $adapter = new \League\Flysystem\Adapter\Local($this->fixturesDir);
         $fileSystem = new \League\Flysystem\Filesystem($adapter);
-        
+
         $this->container = new ContainerBuilder();
         $id = sprintf('oneup_flysystem.%s_filesystem', $this->sFlysystemFileSystem);
         $this->container->set($id, $fileSystem);
     }
-    
+
     public function testShouldImplementLoaderInterface()
     {
         $rc = new \ReflectionClass('Liip\ImagineBundle\Binary\Loader\FlysystemLoader');
@@ -42,7 +42,7 @@ class FlysystemLoaderTest extends AbstractTest
             $this->sFlysystemFileSystem
         );
     }
-    
+
     /**
      * @depends testCouldBeConstructedWithExpectedArguments
      */
@@ -55,14 +55,14 @@ class FlysystemLoaderTest extends AbstractTest
             $loader->find('assets/cats.jpeg')->getContent()
         );
     }
-    
+
     /**
      * @depends testCouldBeConstructedWithExpectedArguments
      */
     public function testThrowsIfInvalidPathGivenOnFind($loader)
     {
         $sPath = 'invalid.jpeg';
-        
+
         $this->setExpectedException(
             'Liip\ImagineBundle\Exception\Binary\Loader\NotLoadableException',
             sprintf('Source image "%s" not found.', $sPath)
