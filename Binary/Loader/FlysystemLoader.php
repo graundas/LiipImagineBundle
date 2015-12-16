@@ -14,12 +14,11 @@ class FlysystemLoader implements LoaderInterface
      * @var \League\Flysystem\Filesystem
      */
     protected $filesystem;
-    
+
     /**
      * @var ExtensionGuesserInterface
      */
     protected $extensionGuesser;
-    
 
     public function __construct(
         ContainerInterface $container,
@@ -27,7 +26,7 @@ class FlysystemLoader implements LoaderInterface
         $sFileSystem)
     {
         $this->extensionGuesser = $extensionGuesser;
-        
+
         try {
             $sFileSystemService = sprintf('oneup_flysystem.%s_filesystem', $sFileSystem);
             $this->filesystem = $container->get($sFileSystemService);
@@ -37,7 +36,7 @@ class FlysystemLoader implements LoaderInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function find($path)
     {
